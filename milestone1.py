@@ -1,341 +1,158 @@
-{
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "provenance": [],
-      "collapsed_sections": [],
-      "authorship_tag": "ABX9TyPygaZAXIAhjcMKSFCpKMaS",
-      "include_colab_link": true
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    }
-  },
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "view-in-github",
-        "colab_type": "text"
-      },
-      "source": [
-        "<a href=\"https://colab.research.google.com/github/LeWEn22/CS-101/blob/Oct15/milestone1.py\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": 1,
-      "metadata": {
-        "id": "zU41ZyWlhmr-"
-      },
-      "outputs": [],
-      "source": [
-        "#s(dna) code from lab03\n",
-        "def dna_count(dna):\n",
-        "    dna = dna.upper()\n",
-        "    count_A = dna.count('A')\n",
-        "    count_C = dna.count('C')\n",
-        "    count_G = dna.count('G')\n",
-        "    count_T = dna.count('T')\n",
-        "    return count_A,count_C,count_G,count_T"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "#dna2rna(dna) code, part was from lab03\n",
-        "def dna2rna(dna):\n",
-        "    rna = ''\n",
-        "    for symbol in dna:\n",
-        "        if symbol == 'A':\n",
-        "            rna = rna + 'A'\n",
-        "        elif symbol == 'T':\n",
-        "            rna += 'U'\n",
-        "        elif symbol == 'G':\n",
-        "            rna += 'G'\n",
-        "        elif symbol == 'C':\n",
-        "            rna += 'C'\n",
-        "    return rna"
-      ],
-      "metadata": {
-        "id": "ppeKzP-ah6Z3"
-      },
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "#reverse_complement(dna) code, part was from lab03\n",
-        "def rna2dna(rna):\n",
-        "    dna = ''\n",
-        "    for symbol in rna:\n",
-        "        if symbol =='A':\n",
-        "            dna = dna + 'T'\n",
-        "        elif symbol == 'C':\n",
-        "            dna = dna + 'G'\n",
-        "        elif symbol == 'G':\n",
-        "            dna = dna + 'C'\n",
-        "        elif symbol == 'U':\n",
-        "            dna = dna +'A'\n",
-        "        elif symbol == 'T':\n",
-        "            dna = dna + 'A'\n",
-        "    return dna[::-1]"
-      ],
-      "metadata": {
-        "id": "JCIq6aEoiChN"
-      },
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "#mendels_law(hom, het, rec) code\n",
-        "def mendels_law(x, y, z):\n",
-        "    total = x + y + z\n",
-        "    twoRecessesive = (z / total) * ((z - 1) / (total - 1))\n",
-        "    twoHeterozygous = (y / total) * ((y - 1) / (total - 1))\n",
-        "    heterozygousRecessesive = (z / total) * (y / (total-1)) + (y / total) * (z / (total - 1))\n",
-        "    recessesiveProb = twoRecessesive + twoHeterozygous * (1 / 4) + heterozygousRecessesive * (1 / 2)\n",
-        "    return 1 - recessesiveProb\n",
-        "\n",
-        "print(mendels_law(4,0,2))"
-      ],
-      "metadata": {
-        "id": "3ZLHfqq1iKU1"
-      },
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "#fibonacci_rabbits(n, k) code\n",
-        "def fibonacci_rabbits(n,k):\n",
-        "    if n <= 2:\n",
-        "        return 1\n",
-        "    else:\n",
-        "        return (fibonacci_rabbits(n - 1,k) + fibonacci_rabbits(n - 2,k) * k)\n",
-        "print(fibonacci_rabbits(1, 3))\n",
-        "print(fibonacci_rabbits(5,3))"
-      ],
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "R8Y7cwOliUq7",
-        "outputId": "1bbe8852-1fee-40a2-d9b6-39b8e219ff52"
-      },
-      "execution_count": 10,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "1\n",
-            "19\n"
-          ]
-        }
-      ]
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "def gc_content(dna_list):\n",
-        "  max=0\n",
-        "  index=-1\n",
-        "  for i in range(len(dna_list)):\n",
-        "    count=0\n",
-        "    for j in range(len(dna_list[i])):\n",
-        "      if(dna_list[i][j]=='G'or dna_list[i][j]=='C'):\n",
-        "        count+=1\n",
-        "    gc_con=(count/len(dna_list[i]))*100.0\n",
-        "    if(gc_con>max):\n",
-        "      index=i\n",
-        "      max=gc_con\n",
-        "  return (index,max)\n",
-        "dna_list=[\"CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG\",\n",
-        " \"CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCTATATCCATTTGTCAGCAGACACGC\",\n",
-        " \"CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT\"]\n",
-        "print(gc_content(dna_list))"
-      ],
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "eDlBU5_jidYJ",
-        "outputId": "8ac718a6-322c-4a12-9191-82830b278286"
-      },
-      "execution_count": 8,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "(2, 60.91954022988506)\n"
-          ]
-        }
-      ]
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "def rna2condon(rna):\n",
-        "  table={\"UUU\":\"F\", \"UUC\":\"F\", \"UUA\":\"L\", \"UUG\":\"L\",\n",
-        "    \"UCU\":\"S\", \"UCC\":\"s\", \"UCA\":\"S\", \"UCG\":\"S\",\n",
-        "    \"UAU\":\"Y\", \"UAC\":\"Y\", \"UAA\":\"STOP\", \"UAG\":\"STOP\",\n",
-        "    \"UGU\":\"C\", \"UGC\":\"C\", \"UGA\":\"STOP\", \"UGG\":\"W\",\n",
-        "    \"CUU\":\"L\", \"CUC\":\"L\", \"CUA\":\"L\", \"CUG\":\"L\",\n",
-        "    \"CCU\":\"P\", \"CCC\":\"P\", \"CCA\":\"P\", \"CCG\":\"P\",\n",
-        "    \"CAU\":\"H\", \"CAC\":\"H\", \"CAA\":\"Q\", \"CAG\":\"Q\",\n",
-        "    \"CGU\":\"R\", \"CGC\":\"R\", \"CGA\":\"R\", \"CGG\":\"R\",\n",
-        "    \"AUU\":\"I\", \"AUC\":\"I\", \"AUA\":\"I\", \"AUG\":\"M\",\n",
-        "    \"ACU\":\"T\", \"ACC\":\"T\", \"ACA\":\"T\", \"ACG\":\"T\",\n",
-        "    \"AAU\":\"N\", \"AAC\":\"N\", \"AAA\":\"K\", \"AAG\":\"K\",\n",
-        "    \"AGU\":\"S\", \"AGC\":\"S\", \"AGA\":\"R\", \"AGG\":\"R\",\n",
-        "    \"GUU\":\"V\", \"GUC\":\"V\", \"GUA\":\"V\", \"GUG\":\"V\",\n",
-        "    \"GCU\":\"A\", \"GCC\":\"A\", \"GCA\":\"A\", \"GCG\":\"A\",\n",
-        "    \"GAU\":\"D\", \"GAC\":\"D\", \"GAA\":\"E\", \"GAG\":\"E\",\n",
-        "    \"GGU\":\"G\", \"GGC\":\"G\", \"GGA\":\"G\", \"GGG\":\"G\",}\n",
-        "  protein=\"\"\n",
-        "  if len(rna)%3==0:\n",
-        "    for i in range(0,len(rna),3):\n",
-        "      condon=rna[i:i+3]\n",
-        "      if table[condon]!=\"STOP\":\n",
-        "        protein+=table[condon]\n",
-        "  return protein"
-      ],
-      "metadata": {
-        "id": "3DHIF8K1kV_l"
-      },
-      "execution_count": 2,
-      "outputs": []
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "def locate_substring(dna_snippet, dna):\n",
-        "  i=0\n",
-        "  \n",
-        "locate_substring('ATAT','GATATATGCATATACTT')"
-      ],
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "iK0KY22tlBIm",
-        "outputId": "d387dd0d-9a23-4449-ae7e-bc2782c2c2dc"
-      },
-      "execution_count": 6,
-      "outputs": [
-        {
-          "output_type": "execute_result",
-          "data": {
-            "text/plain": [
-              "<generator object locate_substring at 0x7fef7472aa50>"
-            ]
-          },
-          "metadata": {},
-          "execution_count": 6
-        }
-      ]
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "#hamming distance\n",
-        "def hamming_dist(dna1,dna2):\n",
-        "    i=0\n",
-        "    dist=0\n",
-        "    \n",
-        "    while i<len(dna1):\n",
-        "        if dna1[i]!=dna2[i]:\n",
-        "            dist=dist+1\n",
-        "        i=i+1 \n",
-        "        \n",
-        "    return dist\n",
-        " \n",
-        "str1=input(\"Enter dna1:\")\n",
-        "str2=input(\"enter dna2:\")\n",
-        "print(hamming_dist(str1,str2))"
-      ],
-      "metadata": {
-        "id": "9Wy9rf6BlU3W"
-      },
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "def count_dom_phenotype(genotypes):\n",
-        "  offspring=0\n",
-        "  n=1\n",
-        "  for couples in genotypes:\n",
-        "    if n<=3:\n",
-        "      offspring+=couples*2\n",
-        "      n+=1\n",
-        "    elif n==4:\n",
-        "      offspring+=couples*1.5\n",
-        "      n+=1\n",
-        "    elif n==5:\n",
-        "      offspring+=couples*1\n",
-        "      n+=1\n",
-        "    elif n==6:\n",
-        "      offspring+=0\n",
-        "  return offspring\n",
-        "print(count_dom_phenotype([1,0,0,1,0,1]))"
-      ],
-      "metadata": {
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "id": "UTFtGiBju8lR",
-        "outputId": "317266a8-94f7-4430-bc24-6aafad880259"
-      },
-      "execution_count": 12,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "3.5\n"
-          ]
-        }
-      ]
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "def source_rna(protein):"
-      ],
-      "metadata": {
-        "id": "cdxk2-8_uyaG"
-      },
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "code",
-      "source": [
-        "def splice_rna(dna,intron_list):\n",
-        "  rna=dna2rna(dna)\n",
-        "  for i in intron_list:\n",
-        "    while i in rna:\n",
-        "      rna=rna.replace(i,\"\")\n",
-        "  return rna"
-      ],
-      "metadata": {
-        "id": "iAp1QFhhoYTG"
-      },
-      "execution_count": null,
-      "outputs": []
-    }
-  ]
-}
+# -*- coding: utf-8 -*-
+"""milestone1
+
+Automatically generated by Colaboratory.
+
+Original file is located at
+    https://colab.research.google.com/drive/1DGV-PVmVetWG9PfMqqaPI5OE_DhGVE4a
+"""
+
+#s(dna) code from lab03
+def dna_count(dna):
+    dna = dna.upper()
+    count_A = dna.count('A')
+    count_C = dna.count('C')
+    count_G = dna.count('G')
+    count_T = dna.count('T')
+    return count_A,count_C,count_G,count_T
+
+#dna2rna(dna) code, part was from lab03
+def dna2rna(dna):
+    rna = ''
+    for symbol in dna:
+        if symbol == 'A':
+            rna = rna + 'A'
+        elif symbol == 'T':
+            rna += 'U'
+        elif symbol == 'G':
+            rna += 'G'
+        elif symbol == 'C':
+            rna += 'C'
+    return rna
+
+#reverse_complement(dna) code, part was from lab03
+def rna2dna(rna):
+    dna = ''
+    for symbol in rna:
+        if symbol =='A':
+            dna = dna + 'T'
+        elif symbol == 'C':
+            dna = dna + 'G'
+        elif symbol == 'G':
+            dna = dna + 'C'
+        elif symbol == 'U':
+            dna = dna +'A'
+        elif symbol == 'T':
+            dna = dna + 'A'
+    return dna[::-1]
+
+#mendels_law(hom, het, rec) code
+def mendels_law(x, y, z):
+    total = x + y + z
+    twoRecessesive = (z / total) * ((z - 1) / (total - 1))
+    twoHeterozygous = (y / total) * ((y - 1) / (total - 1))
+    heterozygousRecessesive = (z / total) * (y / (total-1)) + (y / total) * (z / (total - 1))
+    recessesiveProb = twoRecessesive + twoHeterozygous * (1 / 4) + heterozygousRecessesive * (1 / 2)
+    return 1 - recessesiveProb
+
+print(mendels_law(4,0,2))
+
+#fibonacci_rabbits(n, k) code
+def fibonacci_rabbits(n,k):
+    if n <= 2:
+        return 1
+    else:
+        return (fibonacci_rabbits(n - 1,k) + fibonacci_rabbits(n - 2,k) * k)
+print(fibonacci_rabbits(1, 3))
+print(fibonacci_rabbits(5,3))
+
+def gc_content(dna_list):
+  max=0
+  index=-1
+  for i in range(len(dna_list)):
+    count=0
+    for j in range(len(dna_list[i])):
+      if(dna_list[i][j]=='G'or dna_list[i][j]=='C'):
+        count+=1
+    gc_con=(count/len(dna_list[i]))*100.0
+    if(gc_con>max):
+      index=i
+      max=gc_con
+  return (index,max)
+dna_list=["CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG",
+ "CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCTATATCCATTTGTCAGCAGACACGC",
+ "CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT"]
+print(gc_content(dna_list))
+
+def rna2condon(rna):
+  table={"UUU":"F", "UUC":"F", "UUA":"L", "UUG":"L",
+    "UCU":"S", "UCC":"s", "UCA":"S", "UCG":"S",
+    "UAU":"Y", "UAC":"Y", "UAA":"STOP", "UAG":"STOP",
+    "UGU":"C", "UGC":"C", "UGA":"STOP", "UGG":"W",
+    "CUU":"L", "CUC":"L", "CUA":"L", "CUG":"L",
+    "CCU":"P", "CCC":"P", "CCA":"P", "CCG":"P",
+    "CAU":"H", "CAC":"H", "CAA":"Q", "CAG":"Q",
+    "CGU":"R", "CGC":"R", "CGA":"R", "CGG":"R",
+    "AUU":"I", "AUC":"I", "AUA":"I", "AUG":"M",
+    "ACU":"T", "ACC":"T", "ACA":"T", "ACG":"T",
+    "AAU":"N", "AAC":"N", "AAA":"K", "AAG":"K",
+    "AGU":"S", "AGC":"S", "AGA":"R", "AGG":"R",
+    "GUU":"V", "GUC":"V", "GUA":"V", "GUG":"V",
+    "GCU":"A", "GCC":"A", "GCA":"A", "GCG":"A",
+    "GAU":"D", "GAC":"D", "GAA":"E", "GAG":"E",
+    "GGU":"G", "GGC":"G", "GGA":"G", "GGG":"G",}
+  protein=""
+  if len(rna)%3==0:
+    for i in range(0,len(rna),3):
+      condon=rna[i:i+3]
+      if table[condon]!="STOP":
+        protein+=table[condon]
+  return protein
+
+def locate_substring(dna_snippet, dna):
+  i=0
+  
+locate_substring('ATAT','GATATATGCATATACTT')
+
+#hamming distance
+def hamming_dist(dna1,dna2):
+    i=0
+    dist=0
+    
+    while i<len(dna1):
+        if dna1[i]!=dna2[i]:
+            dist=dist+1
+        i=i+1 
+        
+    return dist
+ 
+str1=input("Enter dna1:")
+str2=input("enter dna2:")
+print(hamming_dist(str1,str2))
+
+def count_dom_phenotype(genotypes):
+  offspring=0
+  n=1
+  for couples in genotypes:
+    if n<=3:
+      offspring+=couples*2
+      n+=1
+    elif n==4:
+      offspring+=couples*1.5
+      n+=1
+    elif n==5:
+      offspring+=couples*1
+      n+=1
+    elif n==6:
+      offspring+=0
+  return offspring
+print(count_dom_phenotype([1,0,0,1,0,1]))
+
+def source_rna(protein):
+
+def splice_rna(dna,intron_list):
+  rna=dna2rna(dna)
+  for i in intron_list:
+    while i in rna:
+      rna=rna.replace(i,"")
+  return rna
